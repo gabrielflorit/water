@@ -182,20 +182,6 @@ $('#slider').bind('keyup.alt', function(e) {
 	slider.css('visibility', 'hidden');
 });
 
-// // trigger slider on meta (command key on os x)
-// $('textarea').bind('keydown.meta', function(e) {
-// 	// are we on a token?
-// 	if (onNumeric) {
-// 		slider.css('visibility', 'visible'); 
-// 	}
-// }).bind('keyup.meta', function(e) {
-// 	slider.css('visibility', 'hidden');
-// });
-
-// $('#slider').bind('keyup.meta', function(e) {
-// 	slider.css('visibility', 'hidden');
-// });
-
 // we're not a numeric, by default
 // if we are, the editor click will handle it
 $('body').on('focus click', function(e) {
