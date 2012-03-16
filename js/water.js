@@ -37,11 +37,11 @@ d3.text('http://gabrielflor.it/static/submodule/water/data/chord.txt', function(
 
 // local storage getter/setter
 function getLocalStorageValue(key) {
-	var localStorageKey = 'gabrielflor.it/water';
+	var localStorageKey = 'gabrielflor.it/water1';
 	return localStorage.getItem([localStorageKey, key].join('/'));
 }
 function setLocalStorageValue(key, value) {
-	var localStorageKey = 'gabrielflor.it/water';
+	var localStorageKey = 'gabrielflor.it/water1';
 	localStorage.setItem([localStorageKey, key].join('/'), value);
 }
 
