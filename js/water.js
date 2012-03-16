@@ -168,17 +168,24 @@ slider.slider({
 	}
 });
 
+// use control key on linux, alt key everywhere else
+var sliderKey = navigator && navigator.platform && navigator.platform.toLowerCase().indexOf('linux') != -1
+	? 'ctrl' : 'alt';
+
+// display slider key on page
+$('#sliderKey').text(sliderKey);
+
 // trigger slider on control
-$('textarea').bind('keydown.alt', function(e) {
+$('textarea').bind('keydown.' + sliderKey, function(e) {
 	// are we on a token?
 	if (onNumeric) {
 		slider.css('visibility', 'visible'); 
 	}
-}).bind('keyup.alt', function(e) {
+}).bind('keyup.' + sliderKey, function(e) {
 	slider.css('visibility', 'hidden');
 });
 
-$('#slider').bind('keyup.alt', function(e) {
+$('#slider').bind('keyup.' + sliderKey, function(e) {
 	slider.css('visibility', 'hidden');
 });
 
