@@ -1,21 +1,5 @@
 $(function() {
 
-var demo = "var data = ['one', 'two', 'three', 'cuatro', 'cinco', 'seis'];\n\n"
-+ "d3.select('svg').selectAll('circle')\n"
-+ "\t.data(data)\n"
-+ "\t.enter()\n"
-+ "\t.append('circle')\n"
-+ "\t.attr('cx', function(d, i) {\n"
-+ "\t\treturn (i * 40) + 40;\n"
-+ "\t})\n"
-+ "\t.attr('cy', 40)\n"
-+ "\t.attr('r', function(d) {\n"
-+ "\t\treturn d.length * 5;\n"
-+ "\t})\n"
-+ "\t.style('stroke', 'maroon')\n"
-+ "\t.style('stroke-width', 1)\n"
-+ "\t.style('fill', 'tan');";
-
 window.aceEditor = ace.edit("editor");
 
 // set the theme
@@ -45,8 +29,11 @@ window.aceEditor.getSession().on('change', function() {
 	finally {};
 });
 
-// do we have stored code? if not, set the demo code
-window.aceEditor.getSession().setValue(getLocalStorageValue('code') ? getLocalStorageValue('code') : demo);
+d3.text('data/chord.txt', function(data) {
+
+	// do we have stored code? if not, set the demo code
+	window.aceEditor.getSession().setValue(getLocalStorageValue('code') ? getLocalStorageValue('code') : data);
+});
 
 // local storage getter/setter
 function getLocalStorageValue(key) {
