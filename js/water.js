@@ -47,11 +47,13 @@ function setLocalStorageValue(key, value) {
 
 // if we click on a numeric constant, select the token and show the slider
 var chosenRow, chosenColumn;
+var onNumeric = false;
 window.aceEditor.on("click", function(e) {
 
 	var editor = e.editor;
 	var pos = editor.getCursorPosition();
 	var token = editor.session.getTokenAt(pos.row, pos.column);
+	onNumeric = false;
 
 	// did we click on a number?
 	if (token && /\bconstant.numeric\b/.test(token.type)) {
@@ -92,8 +94,8 @@ window.aceEditor.on("click", function(e) {
 		slider.css('font-size', '-=4');
 		slider.offset({top: sliderTop, left: sliderLeft});
 
-		// show the slider
-		slider.css('visibility', 'visible');
+		// allow the slider to be shown
+		onNumeric = true;
 
 		// make this position globally scoped
 		chosenRow = pos.row;
@@ -166,13 +168,27 @@ slider.slider({
 	}
 });
 
-// hide slider if we click anywhere else
-$('body').on('focus click', function(e) {
-	if (slider.css('visibility') == 'visible') {
-		if ($(e.target).closest(slider).length === 0) { 
-			slider.css('visibility', 'hidden'); 
-		}; 
+// press control key
+$(window).on('keydown', function(e) {
+	// did we press control? are we on a token?
+	if (onNumeric && e.which == 17) {
+		slider.css('visibility', 'visible'); 
 	}
+});
+
+// release control key
+$(window).on('keyup', function(e) {
+	// did we release control? are we on a token?
+	if (onNumeric && e.which == 17) {
+		slider.css('visibility', 'hidden'); 
+	}
+});
+
+
+// we're not a numeric, by default
+// if we are, the editor click will handle it
+$('body').on('focus click', function(e) {
+	onNumeric = false;
 });
 
 // pulse numeric constants (until user clicks on them)
