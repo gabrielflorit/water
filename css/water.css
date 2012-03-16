@@ -61,10 +61,6 @@ body {
 	border-bottom-left-radius: 40px 10px;
 }
 
-#editor .ace_sb {
-	display: none;
-}
-
 svg {
 	background: #FFF;
 	border-top-left-radius: 5px;
@@ -79,7 +75,7 @@ svg {
 .font-control {
 	position: absolute;
 	top: 0em;
-	right: 0em;
+	right: 1.25em;
 	width: 1em;
 	height: 1em;
 	background-position: 50% 50%;
@@ -91,7 +87,7 @@ svg {
 }
 
 .increase.font-control {
-	right: 1em;
+	right: 2.25em;
 	background-image: url('../img/plus_alt.png');
 }
 
