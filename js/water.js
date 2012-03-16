@@ -29,7 +29,7 @@ window.aceEditor.getSession().on('change', function() {
 	finally {};
 });
 
-d3.text('data/chord.txt', function(data) {
+d3.text('http://gabrielflor.it/static/submodule/water/data/chord.txt', function(data) {
 
 	// do we have stored code? if not, set the demo code
 	window.aceEditor.getSession().setValue(getLocalStorageValue('code') ? getLocalStorageValue('code') : data);
