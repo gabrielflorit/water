@@ -63,13 +63,21 @@ window.aceEditor.on("click", function(e) {
 		}
 
 		// set the slider params based on the token's numeric value
+		// TODO: there has to be a better way of setting this up
+		// TODO: feels pretty silly at the moment
 		if (token.value == 0) {
-			slider.slider('option', 'max', 100);
-			slider.slider('option', 'min', -100);
+			var sliderRange = [-100, 100];
 		} else {
 			var sliderRange = [-token.value * 3, token.value * 5];
-			slider.slider('option', 'max', d3.max(sliderRange));
-			slider.slider('option', 'min', d3.min(sliderRange));
+		}
+		slider.slider('option', 'max', d3.max(sliderRange));
+		slider.slider('option', 'min', d3.min(sliderRange));
+
+		// slider range needs to be evenly divisible by the step
+		if ((d3.max(sliderRange) - d3.min(sliderRange)) > 20) {
+			slider.slider('option', 'step', 1);
+		} else {
+			slider.slider('option', 'step', (d3.max(sliderRange) - d3.min(sliderRange))/200);
 		}
 		slider.slider('option', 'value', token.value);
 
