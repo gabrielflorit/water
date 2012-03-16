@@ -1,6 +1,6 @@
 # water
 
-**<awater** is a live coding sketchpad. Code modifications are instantly displayed - no need to refresh your browser. Click on a number, adjust its value via the popup slider, and watch your work change on the fly!
+**<a href='http://gabrielflor.it/water'>water</a>** is a live coding sketchpad. Code modifications are instantly displayed - no need to refresh your browser. Click on a number, adjust its value via the popup slider, and watch your work change on the fly!
 
 100% totally based on Bret Victor's <a href='https://vimeo.com/36579366'>Inventing on Principle</a> talk, which is one of the best talks I've ever seen. If you watch only one talk this year, make sure it's this one.
 
