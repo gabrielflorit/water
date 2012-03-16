@@ -10,6 +10,6 @@ The beautiful code editor, <a href='http://ace.ajax.org/'>Ace</a>, is an open so
 
 Any static file web server will work - for example,
 
-   python -m SimpleHTTPServer 8888
+    python -m SimpleHTTPServer 8888
 
 Then hit http://localhost:8888/water.html and start coding!
