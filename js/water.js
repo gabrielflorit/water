@@ -1,5 +1,18 @@
 $(function() {
 
+// initially we were setting the svg dimensions on the html, as %,
+// but retrieving those dimensions in firefox returns %, not pixels
+// so we need to set the dimensions in pixels, based on the parent container
+// which in this case is #display
+function setSvgDimensions() {
+	var padding = 0.02;
+	$('svg').width($('#display').width() * (1 - padding));
+	$('svg').height($('#display').height() * (1 - padding));
+	$('svg').css('top', $('#display').height() * (padding/2));
+	$('svg').css('left', $('#display').width() * (padding/2));
+}
+setSvgDimensions();
+
 window.aceEditor = ace.edit("editor");
 
 // set the theme
@@ -29,7 +42,11 @@ function redrawSvg() {
 
 // redraw svg when we update our code or resize the window
 window.aceEditor.getSession().on('change', redrawSvg);
-$(window).on('resize', redrawSvg);
+$(window).on('resize', function() {
+
+	setSvgDimensions();
+	redrawSvg();
+});
 
 d3.text('http://gabrielflor.it/static/submodule/water/data/chord.txt', function(data) {
 
