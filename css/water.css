@@ -116,3 +116,43 @@ svg {
 	background: #cb842e;
 	border-color: #784e1b;
 }
+
+#instructions {
+	position: absolute;
+	top: -2em;
+	text-align: right;
+	right: 0;
+	width: 100%;
+	font-size: 0.9em;
+	line-height: 1.35em;
+	color: white;
+	text-decoration: none;
+	font-family: Arial, sans-serif;
+}
+
+#aboutAndAttribution {
+	position: absolute;
+	bottom: -1em;
+	width: 100%;
+	font-size: 0.9em;
+	line-height: 1.35em;
+	color: white;
+	text-decoration: none;
+	font-family: Arial, sans-serif;
+}
+
+#aboutAndAttribution a {
+	color: white;
+	text-decoration: underline;
+}
+
+#attribution {
+	position: absolute;
+	left: 0;
+}
+
+#about {
+	position: absolute;
+	right: 0;
+}
+
