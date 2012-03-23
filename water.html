@@ -22,6 +22,10 @@
 </head>
 <body>
     <div id='page'>
+		<div id='savePanel'>
+			<div id='saveButton'>&nbsp;</div>
+			<div class='address'><a href='#'>https://gist.github.com/b9ab9418af567e575b3e</a></div>
+		</div>
         <div id='display'>
             <svg></svg>
         </div>
@@ -31,8 +35,8 @@
             <a class='increase font-control' href='#'>+</a>
             <a class='decrease font-control' href='#'>-</a>
         </div>
-        <div id="slider"></div>
-        <div id='instructions'>
+        <div id='slider'></div>
+<!--        <div id='instructions'>
             click a number and hold down the <span id='sliderKey'></span> key
         </div>
         <div id='aboutAndAttribution'>
@@ -41,7 +45,7 @@
                 <p>100% totally based on Bret Victor's genius <a href='http://vimeo.com/36579366'>Inventing on Principle</a> talk<p>
                 <p><a href='https://github.com/gabrielflorit/water'>source code</a> on github</p>
             </div>
-        </div>
+        </div>-->
     </div>
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
     <script src='js/jquery.hotkeys.js'></script>
@@ -50,8 +54,8 @@
     <script src='js/ace/ace.js'></script>
     <script src='js/ace/theme-twilight.js'></script>
     <script src='js/ace/mode-javascript.js'></script>
-    <script>
-        $.getScript('js/water.js');
-    </script>
+	<script>
+		$.getScript('js/water.js');
+	</script>
 </body>
 </html>
