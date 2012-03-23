@@ -3,22 +3,23 @@ $(function() {
 // this is far from complete - much left to do
 // but putting one piece at a time will help
 // figure out the best workflow
+/*
 $('#saveButton').on('click', function(e) {
 
 	var gist = {
-		"description": "watertest",
-		"public": true,
-		"files": {
-			"water.txt": {
-				"content": "contents"
+		description: 'watertest',
+		public: true,
+		files: {
+			'water.txt': {
+				content: 'contents'
 			}
 		}
 	};
-	
-	$.post('https://api.github.com/gists', gist, function(data) {
+
+	$.post('https://api.github.com/gists', JSON.stringify(gist), function(data) {
 	});
-	
 });
+*/
 
 // initially we were setting the svg dimensions on the html, as %,
 // but retrieving those dimensions in firefox returns %, not pixels
