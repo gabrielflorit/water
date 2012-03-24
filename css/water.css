@@ -93,7 +93,7 @@ body {
 	border-bottom-left-radius: 40px 10px;
 }
 
-svg {
+#main {
 	position: absolute;
 	background: #FFF;
 	border-top-left-radius: 5px;
@@ -148,6 +148,17 @@ svg {
 #slider .ui-slider-handle {
 	background: #cb842e;
 	border-color: #784e1b;
+}
+
+#colorpicker {
+	visibility: hidden;
+	z-index: 10;
+	-moz-box-shadow: 0 0 10px 4px rgba(255, 255, 255, 0.4);
+	-webkit-box-shadow: 0 0 10px 4px rgba(255, 255, 255, 0.4);
+	box-shadow: 0 0 10px 4px rgba(255, 255, 255, 0.4);
+        background: #fff;
+	border-radius: 50px;
+
 }
 
 #instructions {

@@ -27,10 +27,10 @@ $('#saveButton').on('click', function(e) {
 // which in this case is #display
 function setSvgDimensions() {
 	var padding = 0.02;
-	$('svg').width($('#display').width() * (1 - padding));
-	$('svg').height($('#display').height() * (1 - padding));
-	$('svg').css('top', $('#display').height() * (padding/2));
-	$('svg').css('left', $('#display').width() * (padding/2));
+	$('#main').width($('#display').width() * (1 - padding));
+	$('#main').height($('#display').height() * (1 - padding));
+        $('#main').css('top', $('#display').height() * (padding/2));
+	$('#main').css('left', $('#display').width() * (padding/2));
 }
 setSvgDimensions();
 
@@ -45,7 +45,7 @@ window.aceEditor.getSession().setMode(new JavaScriptMode());
 
 function redrawSvg() {
 	// clear the window
-	$('svg').empty();
+	$('#main').empty();
 
 	try {
 		// get the ide code
@@ -64,9 +64,8 @@ function redrawSvg() {
 // redraw svg when we update our code or resize the window
 window.aceEditor.getSession().on('change', redrawSvg);
 $(window).on('resize', function() {
-
-	setSvgDimensions();
-	redrawSvg();
+        setSvgDimensions();
+        redrawSvg();
 });
 
 d3.text('../static/submodule/water/data/chord.txt', function(data) {
@@ -88,13 +87,15 @@ function setLocalStorageValue(key, value) {
 // if we click on a numeric constant, select the token and show the slider
 var chosenRow, chosenColumn;
 var onNumeric = false;
+var onHexColor = false;
 window.aceEditor.on("click", function(e) {
 
 	var editor = e.editor;
 	var pos = editor.getCursorPosition();
 	var token = editor.session.getTokenAt(pos.row, pos.column);
 	onNumeric = false;
-
+        onHexColor = false;
+        
 	// did we click on a number?
 	if (token && /\bconstant.numeric\b/.test(token.type)) {
 
@@ -145,6 +146,35 @@ window.aceEditor.on("click", function(e) {
 		// would then trigger an event to hide the slider
 		e.stopPropagation();
 	}
+
+	if (token && /\bstring\b/.test(token.type) && token.value[1] === '#') {
+		// stop pulsing numerics
+	        if (pulseHexColor) {
+			window.clearInterval(pulse);
+			pulseHexColor = false;
+		}
+
+         	var scrollerOffset = $('.ace_scroller').offset();
+	        var cursorOffset = editor.renderer.$cursorLayer.pixelPos;
+	        var sliderTop = scrollerOffset.top + cursorOffset.top - Number($('#editor').css('font-size').replace('px', ''))*8.5;
+	        var sliderLeft = scrollerOffset.left + cursorOffset.left - $('#colorpicker').width()/2;
+                colorpicker.color(token.value.substring(1,token.value.length-1));
+	        $('#colorpicker').css('font-size', $('#editor').css('font-size'));
+	        $('#colorpicker').css('font-size', '-=4');
+                $('#colorpicker').offset({top:sliderTop, left:sliderLeft});
+
+		// allow the slider to be shown
+		onHexColor = true;
+
+		// make this position globally scoped
+		chosenRow = pos.row;
+		chosenColumn = token.start;
+
+		// prevent click event from bubbling up to body, which
+		// would then trigger an event to hide the slider
+		e.stopPropagation();
+
+        }
 });
 
 // turn off horizontal scrollbar
@@ -217,28 +247,59 @@ $('#sliderKey').text(sliderKey);
 
 // trigger slider on control
 $('textarea').bind('keydown.' + sliderKey, function(e) {
-	// are we on a token?
+	// are we on a numeric token?
 	if (onNumeric) {
 		slider.css('visibility', 'visible'); 
 	}
+        // or on a string token?
+	if (onHexColor) {
+	    $('#colorpicker').css('visibility', 'visible'); 
+	}
+
 }).bind('keyup.' + sliderKey, function(e) {
 	slider.css('visibility', 'hidden');
+        $('#colorpicker').css('visibility', 'hidden'); 
 });
 
 $('#slider').bind('keyup.' + sliderKey, function(e) {
 	slider.css('visibility', 'hidden');
+	$('#colorpicker').css('visibility', 'hidden'); 
 });
 
 // we're not a numeric, by default
 // if we are, the editor click will handle it
 $('body').on('focus click', function(e) {
 	onNumeric = false;
+        onHexColor = false;
 });
 
 // pulse numeric constants (until user clicks on them)
 var pulseNumerics = true;
+// pulse hex color strings
+var pulseHexColor = true;
 var pulse = setInterval(function() {
 	$('.ace_numeric').animate({opacity: 0.5}).animate({opacity: 1});
+        // TODO: just animate strings starting with '#'
+	$('.ace_string').animate({opacity: 0.5}).animate({opacity: 1});
 }, 1000);
 
+// colorpicker
+var colorpicker = Raphael.colorwheel($("#colorpicker")[0], 100).color("#FF6600")
+colorpicker.onchange(function(c){
+		// set the cursor to desired location
+		var cursorPosition = window.aceEditor.getCursorPosition();
+		if (!(cursorPosition.row == chosenRow && cursorPosition.column == chosenColumn)) {
+			window.aceEditor.getSelection().moveCursorTo(chosenRow, chosenColumn);
+
+			// clear selection
+			window.aceEditor.clearSelection();
+		}
+
+		// get token
+		var token = window.aceEditor.session.getTokenAt(chosenRow, chosenColumn + 1);
+
+		// find and replace
+		window.aceEditor.find(String(token.value));
+		window.aceEditor.replace('\"'+String(c.hex)+'\"');
+});
 });
