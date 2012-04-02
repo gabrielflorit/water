@@ -6,7 +6,6 @@ from water import app
 from flask import render_template, send_from_directory, redirect, session, request
 from requests import post
 
-
 @app.route('/save/<gistId>', methods=['POST'])
 def save(gistId):
 
@@ -18,9 +17,9 @@ def save(gistId):
         }
     }
 
-    token = session[app.config['GITHUB_ACCESS_TOKEN_KEY']]
+    token = session['access_token']
     headers = {'content-type': 'application/json', 'accept': 'application/json'}
-    r = requests.post(app.config['GITHUB_BASE_URL'] + '/gists/' + gistId + '?' + app.config['GITHUB_ACCESS_TOKEN_KEY'] + '=' + token, data=json.dumps(gist), headers=headers)
+    r = requests.post('https://api.github.com/gists/' + gistId + '?access_token=' + token, data=json.dumps(gist), headers=headers)
 
     return json.loads(r.text)['updated_at']
 
@@ -39,9 +38,9 @@ def create():
         }
     }
 
-    token = session[app.config['GITHUB_ACCESS_TOKEN_KEY']]
+    token = session['access_token']
     headers = {'content-type': 'application/json', 'accept': 'application/json'}
-    r = requests.post(app.config['GITHUB_BASE_URL'] + '/gists' + '?' + app.config['GITHUB_ACCESS_TOKEN_KEY'] + '=' + token, data=json.dumps(gist), headers=headers)
+    r = requests.post('https://api.github.com/gists' + '?access_token=' + token, data=json.dumps(gist), headers=headers)
 
     return json.loads(r.text)['id']
 
@@ -68,11 +67,11 @@ def index():
     github_url = ''
     create = ''
 
-    if app.config['GITHUB_ACCESS_TOKEN_KEY'] in session:
+    if 'access_token' in session:
         # if so, are we also logged in?
-        token = session[app.config['GITHUB_ACCESS_TOKEN_KEY']]
+        token = session['access_token']
         # try to get user details from github
-        r = requests.get(app.config['GITHUB_BASE_URL'] + '/user' + '?' + app.config['GITHUB_ACCESS_TOKEN_KEY'] + '=' + token)
+        r = requests.get('https://api.github.com/user?access_token=' + token)
         # convert request to json object
         jsonRequest = json.loads(r.text)
         # do we have a username?
@@ -83,10 +82,10 @@ def index():
             github_url = jsonRequest['html_url']
         else:
             #  no - clear session
-            session[app.config['GITHUB_ACCESS_TOKEN_KEY']] = ''
+            session['access_token'] = ''
     else:
         # we aren't logged in - clear session
-        session[app.config['GITHUB_ACCESS_TOKEN_KEY']] = ''
+        session['access_token'] = ''
 
     # by default, client will create code contents
     # to a gist the first time user logs in to github
@@ -106,7 +105,7 @@ def index():
 @app.route('/github-login')
 def github_login():
     # take user to github for authentication
-    return redirect(app.config['GITHUB_AUTHORIZE_URL'] + '?client_id=' + app.config['CLIENT_ID'] + '&scope=gist')
+    return redirect('https://github.com/login/oauth/authorize?client_id=' + app.config['CLIENT_ID'] + '&scope=gist')
 
 
 
@@ -121,10 +120,10 @@ def github_logged_in():
     headers = {'content-type': 'application/json', 'accept': 'application/json'}
 
     # request an access token
-    r = requests.post(app.config['GITHUB_ACCESS_TOKEN'], data=json.dumps(data), headers=headers)
+    r = requests.post('https://github.com/login/oauth/access_token', data=json.dumps(data), headers=headers)
 
     # save access token in session
-    session[app.config['GITHUB_ACCESS_TOKEN_KEY']] = json.loads(r.text)[app.config['GITHUB_ACCESS_TOKEN_KEY']]
+    session['access_token'] = json.loads(r.text)['access_token']
 
     # instruct client to create code contents to a gist
     session['create'] = True
