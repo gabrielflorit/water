@@ -23,15 +23,24 @@ Install dependencies with Pip:
 
     bin/pip install -r requirements.txt
 
+### Environment Variables
 
-And finally start the Flask server (this is perfectly fine for development):
+<a href='https://github.com/settings/applications/new'>Create an app on GitHub</a>. Next, create an .env file with the following three keys:
 
-    python runserver.py
+    CLIENT_ID=<your github app client id>
+    CLIENT_SECRET=<your github app secret>
+    SECRET_KEY=<a randomly generated key - see below>
 
+To generate a random key, fire up the python console:
+    
+    >>> import os
+    >>> os.urandom(24)
+    '\xfd{H\xe5<\x95\xf9\xe3\x96.5\xd1\x01O<!\xd5\xa2\xa0\x9fR"\xa1\xa8'
 
-Or the gunicorn server (what we use on production):
+### Run
 
-    gunicorn water:app -b "0.0.0.0:5000"
+Finally, start the app with <a href='http://blog.daviddollar.org/2011/05/06/introducing-foreman.html'>Foreman</a>:
 
+    foreman start
 
-Then hit http://127.0.0.1:5000 and start coding!
+Hit http://127.0.0.1:5000 and start coding!
