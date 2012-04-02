@@ -3,17 +3,8 @@ import datetime
 import requests
 import json
 from water import app
-from flask import render_template, send_from_directory, redirect, session, request, logging
+from flask import render_template, send_from_directory, redirect, session, request
 from requests import post
-
-
-@app.route('/')
-def test():
-
-    # app.logger.error(os.getenv('SECRET_KEY'))
-    return os.getenv('SECRET_KEY')
-    # return os.getenv('SECRET_KEY')
-    # return 'hello'
 
 
 @app.route('/save/<gistId>', methods=['POST'])
@@ -57,7 +48,7 @@ def create():
 
 
 
-@app.route('/test')
+@app.route('/')
 def index():
 
     # from http://developer.github.com/v3/oauth/ :
@@ -115,7 +106,7 @@ def index():
 @app.route('/github-login')
 def github_login():
     # take user to github for authentication
-    return redirect('https://github.com/login/oauth/authorize?client_id=' + app.config['CLIENT_ID'] + '&scope=gist')
+    return redirect('https://github.com/login/oauth/authorize?client_id=' + os.getenv('CLIENT_ID') + '&scope=gist')
 
 
 
@@ -126,7 +117,7 @@ def github_logged_in():
     tempcode = request.args.get('code', '')
 
     # construct data and headers to send to github
-    data = {'client_id': app.config['CLIENT_ID'], 'client_secret': app.config['CLIENT_SECRET'], 'code': tempcode }
+    data = {'client_id': os.getenv('CLIENT_ID'), 'client_secret': os.getenv('CLIENT_SECRET'), 'code': tempcode }
     headers = {'content-type': 'application/json', 'accept': 'application/json'}
 
     # request an access token

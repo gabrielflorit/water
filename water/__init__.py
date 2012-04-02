@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 
 app = Flask(__name__)
@@ -7,4 +8,4 @@ app.wsgi_app = GzipMiddleware(app.wsgi_app, compresslevel=5)
 
 import water.views
 
-app.config.from_pyfile('config.cfg')
+app.secret_key = os.getenv('SECRET_KEY')
