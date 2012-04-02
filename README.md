@@ -34,4 +34,4 @@ Or the gunicorn server (what we use on production):
     gunicorn water:app -b "0.0.0.0:5000"
 
 
-Then hit http://localhost:8888/water.html and start coding!
+Then hit http://127.0.0.1:5000 and start coding!

@@ -6,3 +6,5 @@ from util.gzipmiddleware import GzipMiddleware
 app.wsgi_app = GzipMiddleware(app.wsgi_app, compresslevel=5)
 
 import water.views
+
+app.config.from_pyfile('config.cfg')
