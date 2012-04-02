@@ -6,6 +6,12 @@ from water import app
 from flask import render_template, send_from_directory, redirect, session, request
 from requests import post
 
+
+@app.route('/')
+def test():
+    return 'hello'
+
+
 @app.route('/save/<gistId>', methods=['POST'])
 def save(gistId):
 
@@ -47,7 +53,7 @@ def create():
 
 
 
-@app.route('/')
+@app.route('/test')
 def index():
 
     # from http://developer.github.com/v3/oauth/ :
