@@ -7,3 +7,4 @@ local
 *.pyc
 *~
 .DS_store
+.env
