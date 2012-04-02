@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>water</title>
+    <meta name='robots' content='index, follow' />
+    <meta name='description' content="water - a live coding interactive editor based on Bret Victor's Inventing on Principle talk" />
+    <meta name='keywords' content='live coding, interactive editor, d3, bret victor, inventing on principle' />
+    <meta name='author' content='Gabriel Florit' />
+    <link rel='stylesheet' type='text/css' href='http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css' />
+    <link rel='stylesheet' type='text/css' href='../static/css/water.css' />
+    <link rel='stylesheet' type='text/css' href='../static/slider/css/humanity/jquery-ui-slider.css' />
+    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Lato:400,700,900' />
+</head>
+<body>
+    <div id='page'>
+        <div id='topControls'>
+            <div id='saveControls'>
+                <a href='#' class='avatar' target='_blank'><img src='' /></a>
+                <a href='#' class='new button'><img src='../static/img/doc-white.png' title='new' />new</a>
+                <a href='#' class='save button'><img src='../static/img/pen-white.png' title='save' />save</a>
+                <a href='#' class='gistUrl' target='_blank'></a>
+                <span class='updateTimestamp'>saved</span>
+            </div>
+            <div id='instructions'>
+                click a number and hold down the <span id='sliderKey'></span> key
+            </div>
+            <div id='message'>
+                <span class='emptyDocMessage'>cannot save an empty document</span>
+                <span class='gistIntegrationMessage'>water will save your work on github. <a href='/github-login'>click here to continue</a>.</span>
+                <span class='newDocMessage'>clear out the code editor contents?<a href='#' class='newYes'>yes</a><a href='#' class='newNo'>no</a></span>
+            </div>
+        </div>
+        <div id='display'>
+            <svg></svg>
+        </div>
+        <div id='editor'>
+        </div>
+        <div>
+            <a class='increase font-control' href='#'>+</a>
+            <a class='decrease font-control' href='#'>-</a>
+        </div>
+        <div id="slider"></div>
+        <div id='aboutAndAttribution'>
+            <a id='about' href='http://gabrielflor.it/blog-water'>what is this?</a>
+            <div id='attribution'>
+                <p><a href='https://github.com/gabrielflorit/water'>source code</a> on github - you should follow me on twitter <a href='http://twitter.com/gabrielflorit'>here</a></p>
+            </div>
+        </div>
+    </div>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+    <script src='../static/js/jquery.hotkeys.js'></script>
+    <script src='../static/slider/js/jquery.ui.slider.js'></script>
+    <script src='../static/js/d3.v2.min.js'></script>
+    <script src='../static/js/ace/ace.js'></script>
+    <script src='../static/js/ace/theme-twilight.js'></script>
+    <script src='../static/js/ace/mode-javascript.js'></script>
+    <script src='../static/js/water.js'></script>
+    <script>
+        // global variables here there and everywhere! ugh!
+        // clean it up!!!
+        var username = '{{vars.username}}';
+        var avatar = '{{vars.avatar}}';
+        var github_url = '{{vars.github_url}}';
+        var create = '{{vars.create}}';
+    </script>
+</body>
+</html>
