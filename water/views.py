@@ -3,13 +3,17 @@ import datetime
 import requests
 import json
 from water import app
-from flask import render_template, send_from_directory, redirect, session, request
+from flask import render_template, send_from_directory, redirect, session, request, logging
 from requests import post
 
 
 @app.route('/')
 def test():
-    return 'hello'
+
+    # app.logger.error(os.getenv('SECRET_KEY'))
+    return os.getenv('SECRET_KEY')
+    # return os.getenv('SECRET_KEY')
+    # return 'hello'
 
 
 @app.route('/save/<gistId>', methods=['POST'])
