@@ -7,4 +7,3 @@ local
 *.pyc
 *~
 .DS_store
-config.cfg
