@@ -1,12 +1,14 @@
 # water
 
-**<a href='http://water.gabrielflor.it'>water</a>** is a live coding sketchpad. Code modifications are instantly displayed - no need to refresh your browser. Click on a number, adjust its value via the popup slider, and watch your work change on the fly!
+**[water](http://water.gabrielflor.it)** is a live coding sketchpad. Code modifications are instantly displayed - no need to refresh your browser. Click on a number, adjust its value via the popup slider, and watch your work change on the fly!
 
-100% totally based on Bret Victor's <a href='https://vimeo.com/36579366'>Inventing on Principle</a> talk, which is one of the best talks I've ever seen. If you watch only one talk this year, make sure it's this one.
+100% totally based on Bret Victor's [Inventing on Principle](https://vimeo.com/36579366) talk, which is one of the best talks I've ever seen. If you watch only one talk this year, make sure it's this one.
 
-The beautiful code editor, <a href='http://ace.ajax.org/'>Ace</a>, is an open source project by Ajax.org.
+The beautiful code editor, [Ace](http://ace.ajax.org/), is an open source project by Ajax.org.
 
 ### Setup
+
+    git clone https://github.com/gabrielflorit/water.git
 
 This app uses virtualenv. If you haven't done so, create one first:
 
@@ -25,7 +27,12 @@ Install dependencies with Pip:
 
 ### Environment Variables
 
-<a href='https://github.com/settings/applications/new'>Create an app on GitHub</a>. Next, create an .env file with the following three keys:
+[Create an app on GitHub](https://github.com/settings/applications/new).
+
+* URL: http://localhost:5000/
+* Callback URL: http://localhost:5000/github-logged-in
+
+Next, create an .env file with the following three keys:
 
     CLIENT_ID=<your github app client id>
     CLIENT_SECRET=<your github app secret>
@@ -39,7 +46,7 @@ To generate a random key, fire up the python console:
 
 ### Run
 
-Finally, start the app with <a href='http://blog.daviddollar.org/2011/05/06/introducing-foreman.html'>Foreman</a>:
+Finally, start the app with [Foreman](http://blog.daviddollar.org/2011/05/06/introducing-foreman.html):
 
     foreman start
 
